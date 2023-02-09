@@ -10,8 +10,8 @@ public class HttpControllerTest {
     // 브라우저로 요청하는 것은 get만 가능하다 나머지는 postman 같은 툴로 확인해야 한다.
     // http://localhost:8080/http/get
     @GetMapping("/http/get")
-    public String getTest() {
-        return "get 요청";
+    public String getTest(@RequestParam int id, @RequestParam String username) { // http://localhost:8080/http/get?id=1 으로 요청을 보내면 @RequestParam으로 1을 받는다.
+        return "get 요청 : " + id + username;
     }
 
     // http://localhost:8080/http/post
