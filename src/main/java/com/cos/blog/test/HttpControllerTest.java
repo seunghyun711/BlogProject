@@ -11,19 +11,20 @@ public class HttpControllerTest {
     // http://localhost:8080/http/get
     @GetMapping("/http/get")
     public String getTest(Member m) { // http://localhost:8080/http/get?id=1 으로 요청을 보내면 @RequestParam으로 1을 받는다.
+        // @RequestParma으로 받아올때는 id, username을 매개변수로 하나씩 받아왔지만 클래스를 넘겨받으면 그럴 필요 없다.
         return "get 요청 : " + m.getId() + m.getUsername();
     }
 
     // http://localhost:8080/http/post
     @PostMapping("/http/post")
-    public String postTest() {
-        return "post 요청";
+    public String postTest(@RequestBody String text) {
+        return "post 요청 : " + text;
     }
 
     // http://localhost:8080/http/put
     @PutMapping("/http/put")
-    public String putTest() {
-        return "put 요청";
+    public String putTest(@RequestBody Member m) {
+        return "put 요청" + m.getId() + ", " + m.getUsername() + ", " + m.getPassword() + ", " + m.getEmail();
     }
 
     // http://localhost:8080/http/delete
