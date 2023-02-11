@@ -34,5 +34,5 @@ public class User {
     private String role; // Enum을 쓰는 것이 좋다. / admin, user, manager등의 권한 관리
 
     @CreationTimestamp // 시간이 자동으로 입력됨
-    private Timestamp createDates; // 시간
+    private Timestamp createDate; // 시간
 }
