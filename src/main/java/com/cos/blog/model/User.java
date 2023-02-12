@@ -21,7 +21,7 @@ import java.sql.Timestamp;
 public class User {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에 연결된 디비(mysql)의 넘버링 전략을 따른다.
-    private Long id; // 고유 번호
+    private int id; // 고유 번호
 
     @Column(nullable = false) // 해당 열은 널값이 들어가면 안된다.
     private String userName; // 유저의 아이디
