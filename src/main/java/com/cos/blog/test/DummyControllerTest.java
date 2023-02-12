@@ -9,11 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -24,6 +22,30 @@ public class DummyControllerTest {
 
     @Autowired // 의존성 주입
     private UserRepository userRepository; // 처음 상태는 null
+
+    // email, password 수정
+    /*
+    save메서드는 id 전달하지 않으면 insert하고
+    save메서드는 id를 전달하면 해덩 id에 대한 데이터가 있으면 update하고
+    save메서드는 id를 전달하면 해당 id에 대한 데이터가 없으면 insert한다.
+     */
+
+    @PutMapping("/dummy/user/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // json데이터를 요청하면  (MessageConverter의 Jackson라이브러리가 자바 객체로 변환하여 받아준다.
+        System.out.println("id : " + id);
+        System.out.println("password : " + requestUser.getPassword());
+        System.out.println("email : " + requestUser.getEmail());
+
+        User user = userRepository.findById(id).orElseThrow(()->{
+            return new IllegalArgumentException("수정 실패");
+        });
+        user.setPassword(requestUser.getPassword());
+        user.setEmail(requestUser.getEmail());
+//        userRepository.save(user);
+
+        return null;
+
+    }
 
     // 전체 user 조회
     @GetMapping("/dummy/user")
