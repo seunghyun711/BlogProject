@@ -30,6 +30,11 @@ public class DummyControllerTest {
     save메서드는 id를 전달하면 해당 id에 대한 데이터가 없으면 insert한다.
      */
 
+    @Transactional // 메서드 종료시 자동 commit됨
+    /*
+    영속성 컨텍스트 : 엔티티를 영구 저장하는 환경이라는 의미로 해당 코드 기준으로 user객체를 1차캐시에 넣어 영속화 시킨다.
+    이 후 1차 캐시와 현재 엔티티 사이의 변경을 감지하면 컨트롤러 종료시 1차캐시에서 update문을 자동으로 수행하여 db에 반영한다.
+     */
     @PutMapping("/dummy/user/{id}")
     public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // json데이터를 요청하면  (MessageConverter의 Jackson라이브러리가 자바 객체로 변환하여 받아준다.
         System.out.println("id : " + id);
@@ -43,6 +48,10 @@ public class DummyControllerTest {
         user.setEmail(requestUser.getEmail());
 //        userRepository.save(user);
 
+        /*
+        더티 체킹 : 상태변경 검사 jpa에서는 트랜잭션이 끝나는 시점에서 변화가 있는 모든 엔티티 객체를 db에 반영한다.
+        따라서 @Transcational을 붙이고, db에 변경사항이 생기면 알아서 db에 변경사항이 적용된다.
+         */
         return null;
 
     }
