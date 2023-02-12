@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -18,6 +19,12 @@ public class DummyControllerTest {
 
     @Autowired // 의존성 주입
     private UserRepository userRepository; // 처음 상태는 null
+
+    // 전체 user 조회
+    @GetMapping("/dummy/user")
+    public List<User> list(){
+        return userRepository.findAll();
+    }
 
     //{id}주소로 파리미터를 전달 받을 수 있다.
     @GetMapping("/dummy/user/{id}")
