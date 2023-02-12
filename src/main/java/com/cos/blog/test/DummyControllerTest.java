@@ -5,6 +5,7 @@ import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 import net.bytebuddy.TypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -52,7 +53,7 @@ public class DummyControllerTest {
         더티 체킹 : 상태변경 검사 jpa에서는 트랜잭션이 끝나는 시점에서 변화가 있는 모든 엔티티 객체를 db에 반영한다.
         따라서 @Transcational을 붙이고, db에 변경사항이 생기면 알아서 db에 변경사항이 적용된다.
          */
-        return null;
+        return user;
 
     }
 
@@ -107,6 +108,15 @@ public class DummyControllerTest {
         user.setRole(RoleType.USER);
         userRepository.save(user);
         return "회원가입 완료";
+    }
 
+    @DeleteMapping("/dummy/user/{id}")
+    public String delete(@PathVariable int id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return "삭제 실패. 해당 id는 없는 id입니다.";
+        }
+        return "삭제되었습니다. id : " + id;
     }
 }
