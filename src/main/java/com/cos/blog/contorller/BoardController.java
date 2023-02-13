@@ -8,6 +8,6 @@ public class BoardController {
 
     @GetMapping("/blog")
     public String index(){
-        return "views/index";
+        return "index";
     }
 }
