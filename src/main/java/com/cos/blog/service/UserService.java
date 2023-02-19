@@ -25,9 +25,4 @@ public class UserService {
         return -1;
     }
 
-    @Transactional(readOnly = true) // select할 때 트랜잭션 시작 / 서비스 종료 시 트랜잭션 종료(정합성 유지)
-    public User 로그인(User user) {
-        return userRepository.findByUserNameAndPassword(user.getUserName(), user.getPassword());
-    }
-
 }
