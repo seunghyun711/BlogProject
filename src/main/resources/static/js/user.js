@@ -11,7 +11,7 @@ let index = {
     save: function(){
         //alert('user의 save함수 호출됨');
         let data = {
-            userName: $("#userName").val(),
+            username: $("#username").val(),
             password: $("#password").val(),
             email: $("#email").val()
         }

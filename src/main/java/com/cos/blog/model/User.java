@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -20,13 +18,13 @@ import java.sql.Timestamp;
 //@DynamicInsert // insert할때 null인 필드 제외
 public class User {
     @Id // pk
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에 연결된 디비(mysql)의 넘버링 전략을 따른다.
+    @GeneratedValue(strategy = GenerationType.AUTO) // 프로젝트에 연결된 디비(mysql)의 넘버링 전략을 따른다.
     private int id; // 고유 번호
 
-    @Column(nullable = false) // 해당 열은 널값이 들어가면 안된다.
-    private String userName; // 유저의 아이디
+    @Column(nullable = false,length = 30, unique = true) // 해당 열은 널값이 들어가면 안된다.
+    private String username; // 유저의 아이디
 
-    @Column(nullable = false, length = 100) // 패스워드 길이는 100으로 제한
+    @Column(nullable = false, length = 300) // 패스워드 길이는 300으로 제한
     private String password; // 유저의 비밀번호(auto_increment)
 
     @Column(nullable = false, length = 50)
