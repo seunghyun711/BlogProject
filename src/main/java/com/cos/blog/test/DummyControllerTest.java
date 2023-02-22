@@ -3,7 +3,6 @@ package com.cos.blog.test;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
-import net.bytebuddy.TypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 // data를 리턴해주는 컨트롤러 RestController
@@ -64,12 +62,12 @@ public class DummyControllerTest {
     }
 
     // 한 페이징 당 2건의 데이터 리턴 받는다.
-    @GetMapping("/dummy/user/page")
-    public List<User> pageList(@PageableDefault(size = 2, sort = "id",direction = Sort.Direction.DESC)Pageable pageable) {
+    @GetMapping("/dummy/user/blog")
+    public Page<User> pageList(@PageableDefault(size = 2, sort = "id",direction = Sort.Direction.DESC)Pageable pageable) {
         Page<User> pagingUser = userRepository.findAll(pageable);
 
         List<User> users = pagingUser.getContent();
-        return users;
+        return pagingUser;
     }
 
     //{id}주소로 파리미터를 전달 받을 수 있다.
@@ -99,7 +97,7 @@ public class DummyControllerTest {
     @PostMapping("/dummy/join")
     public String join(User user){ // 매개변수 3개는 key-value형태의 데이터를 받는다.
         System.out.println("id : " + user.getId());
-        System.out.println("userName : " + user.getUserName());
+        System.out.println("userName : " + user.getUsername());
         System.out.println("password : " + user.getPassword());
         System.out.println("email : " + user.getEmail());
         System.out.println("role : " + user.getRole());
