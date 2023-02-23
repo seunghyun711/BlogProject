@@ -27,28 +27,35 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <th:choose>
-            <th:when test="${empty principal}">
+        <th:block th:choose>
+            <th:block th:when="${#strings.isEmpty(principal)}">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="/auth/loginForm">로그인</a></li>
                     <li class="nav-item"><a class="nav-link" href="/auth/joinForm">회원가입</a></li>
                 </ul>
-            </th:when>
-            <th:otherwise>
+            </th:block>
+            <th:block th:otherwise>
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="/board/saveForm">글쓰기</a></li>
                     <li class="nav-item"><a class="nav-link" href="/user/updateForm">회원 정보</a></li>
                     <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
                 </ul>
-            </th:otherwise>
-        </th:choose>
+            </th:block>
+        </th:block>
     </div>
 </nav>
 <br>
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
     <button id="btn-update" class="btn btn-warning">수정</button>
-    <button id="btn-delete" class="btn btn-danger">삭제</button>
+    <th:if test="${board.user.id == principal.user.id}">
+        <button id="btn-delete" class="btn btn-danger">삭제</button>
+    </th:if>
     <br/><br/>
+    <div>
+        글 번호 : <span id="id"><i th:text="${board.id}"></i></span>
+         작성자 : <span><i th:text="${board.user.username}"></i></span>
+    </div>
+    <br/>
     <div class="form-group">
         <h3 th:text="${board.title}"></h3>
     </div>
