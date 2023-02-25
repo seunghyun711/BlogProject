@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal"var="principal"></sec:authentication>
+    <sec:authentication property="principal"var="principal"/>
 </sec:authorize>
 <!DOCTYPE html>
 <head>
@@ -53,6 +53,9 @@
     </div>
 
     <button id="btn-login" class="btn btn-primary">로그인</button>
+    <a href="https://kauth.kakao.com/oauth/authorize?client_id=d6f38781580c15aa9995e87350867979
+&redirect_uri=http://localhost:8080/auth/kakao/callback
+&response_type=code"><img height="38px" src="/image/kakao_login_button.png"/> </a>
 </form>
 
 </div>
