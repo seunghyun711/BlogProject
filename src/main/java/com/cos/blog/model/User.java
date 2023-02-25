@@ -19,9 +19,9 @@ import java.sql.Timestamp;
 public class User {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.AUTO) // 프로젝트에 연결된 디비(mysql)의 넘버링 전략을 따른다.
-    private int id; // 고유 번호
+    private Long id; // 고유 번호
 
-    @Column(nullable = false,length = 30, unique = true) // 해당 열은 널값이 들어가면 안된다.
+    @Column(nullable = false,length = 300, unique = true) // 해당 열은 널값이 들어가면 안된다.
     private String username; // 유저의 아이디
 
     @Column(nullable = false, length = 300) // 패스워드 길이는 300으로 제한
@@ -35,6 +35,8 @@ public class User {
     // db는 RoleType이 없다.
     @Enumerated(EnumType.STRING) // String임을 알린다.
     private RoleType role;
+
+    private String oauth; // 카카오, 구글 등 각 로그인 경로 구분
 
     @CreationTimestamp // 시간이 자동으로 입력됨
     private Timestamp createDate; // 시간
