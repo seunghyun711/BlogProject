@@ -33,4 +33,10 @@ public class Reply {
     @CreationTimestamp
     private Timestamp createDate;
 
+    @Override
+    public String toString() {
+        return "Reply [id=" + replyId + ", content=" + content + ", board=" + board + ", user=" + user + ", createDate="
+                + createDate + "]"; // 오브젝트를 출력하면 자동으로 toString()이 호출됨
+    }
+
 }

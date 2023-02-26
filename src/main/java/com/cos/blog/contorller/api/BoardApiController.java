@@ -44,4 +44,10 @@ public class BoardApiController {
         boardService.댓글쓰기(principal.getUser(),boardId,reply);
         return new ResponseDto<Long>(HttpStatus.OK.value(), 1L);
     }
+
+    @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+    public ResponseDto<Long> replyDelete(@PathVariable Long replyId) {
+        boardService.댓글삭제(replyId);
+        return new ResponseDto<Long>(HttpStatus.OK.value(), 1L);
+    }
 }
