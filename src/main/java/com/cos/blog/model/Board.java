@@ -1,10 +1,10 @@
 package com.cos.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -40,7 +40,9 @@ public class Board {
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아님, 즉 fk가 아니다. db에 컬럼을 만들지 않는다.
     // board는 Reply클래스 필드에 있는 Board board다.
     //fk 필요 없다.
-    private List<Reply> reply; // 게시글 하나에 여러개의 reply가 올 수 있기 때문에 List로 지정
+    @JsonIgnoreProperties({"board"}) // Reply 내에서 Board를 또 호출하지 않음
+    @OrderBy("id desc")
+    private List<Reply> replies; // 게시글 하나에 여러개의 reply가 올 수 있기 때문에 List로 지정
 
     @CreationTimestamp
     private Timestamp createDate;

@@ -1,9 +1,6 @@
 package com.cos.blog.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -14,6 +11,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
+@Getter
+@Setter
 @Table(name = "reply")
 public class Reply {
     @Id
@@ -28,7 +27,7 @@ public class Reply {
     private Board board;
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "userId")
     private User user;
 
     @CreationTimestamp

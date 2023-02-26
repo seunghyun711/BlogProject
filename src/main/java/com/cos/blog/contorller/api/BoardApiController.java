@@ -3,6 +3,7 @@ package com.cos.blog.contorller.api;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.service.BoardService;
 import com.cos.blog.service.UserService;
@@ -23,6 +24,8 @@ public class BoardApiController {
         return new ResponseDto<Long>(HttpStatus.OK.value(), 1L);
     }
 
+
+
     @DeleteMapping("/api/board/{id}")
     public ResponseDto<Long> deleteById(@PathVariable Long id) {
         boardService.글삭제하기(id);
@@ -32,6 +35,13 @@ public class BoardApiController {
     @PutMapping("api/board/{id}")
     public ResponseDto<Long> update(@PathVariable Long id, @RequestBody Board board) {
         boardService.글수정하기(id, board);
+        return new ResponseDto<Long>(HttpStatus.OK.value(), 1L);
+    }
+
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Long> replySave(@PathVariable Long boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+
+        boardService.댓글쓰기(principal.getUser(),boardId,reply);
         return new ResponseDto<Long>(HttpStatus.OK.value(), 1L);
     }
 }
