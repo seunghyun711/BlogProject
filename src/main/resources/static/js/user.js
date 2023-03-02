@@ -31,9 +31,15 @@ let index = {
             dataType: "json" // 요청을 서버로 해서 응답이 왔을 때 기본적으로 모든 것이 String(생긴게 json이라면) => javascript 객체로 변경해준다.
         // 회원가입 수행 요창
         }).done(function(resp){ // 응답의 결과가 성공이면 실행
-            alert("회원가입이 완료되었습니다.")
-//            console.log(resp);
-            location.href = "/";
+            if(resp.status == 500){
+                alert("회원 가입에 실패하였습니다.")
+
+            }else{
+                 alert("회원가입이 완료되었습니다.")
+                //            console.log(resp);
+                 location.href = "/";
+            }
+
         }).fail(function(error){ // 응답의 결과가 실패하면 실행
             alert(JSON.stringify(error));
         }); // ajax 통신을 이용해 3개의 데이터를 json으로 변경하여 insert 요청
